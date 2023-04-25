@@ -1,12 +1,14 @@
 import { useState } from "react";
 import { AddCategory } from "./components/AddCategory";
+import { GifGrid } from "./components/GifGrid";
 
 export const GifExpertApp = () => {
   // dy9A9TuBSMepBEzD93k76CCrs1247Unr
-  const [categories, setCategories] = useState(["One Punch", "Messi"]);
+  const [categories, setCategories] = useState(["One Punch"]);
 
   const onAddCategory = (newCategory) => {
     console.log(newCategory);
+    if (categories.includes(newCategory)) return;
 
     // TRATAR DE NO USAR PUSH, PORQUE MUTA, Y REACT TRATA DE NO MUTAR
     // let copyCategories = [...categories]
@@ -22,23 +24,15 @@ export const GifExpertApp = () => {
 
   return (
     <>
-      {/* title */}
       <h1>GifExpertApp</h1>
-
-      {/* input */}
-      {/* "ON" es cuando emite algo (evento) */}
       <AddCategory
         // setCategories={setCategories}
         onNewCategory={onAddCategory}
       />
 
-      {/* listado de gif */}
-      <ol>
-        {categories.map((category, i) => {
-          return <li key={i}>{category}</li>;
-        })}
-      </ol>
-      {/* gif item */}
+      {categories.map((category) => {
+        return <GifGrid category={category} key={category} />;
+      })}
     </>
   );
 };
